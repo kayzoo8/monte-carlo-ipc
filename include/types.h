@@ -11,10 +11,17 @@
 #define MONTE_CARLO_IPC_TYPES_H
 
 typedef struct {
-    int worker_id; // for debugging
     long long total_trials; // the N iterations the child performed
     long long hits; // how many landed inside d^2 <= 1
-    double elapsed_time; // how long child took
+    // double elapsed_time; // how long child took
 } sim_result;
+
+// from worker.c
+void compute_pi_samples(long long iterations, int pipe_write_fd);
+sim_result test_math(long long iterations, unsigned int seed);
+
+// from ipc_manager.c
+void create_pipes(int pipes[][2], int num_workers);
+
 
 #endif //MONTE_CARLO_IPC_TYPES_H
