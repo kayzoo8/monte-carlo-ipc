@@ -16,7 +16,7 @@
 
 void compute_pi_samples(long long iterations, int pipe_write_fd) {
     sim_result worker;
-    worker.worker_id = getpid(); // worker id is pid for now
+    // worker.worker_id = getpid(); // worker id is pid for now
     worker.hits = 0;
     unsigned int seed = time(NULL) ^ (getpid() << 16);
         // generate diff sequence of random numbers unique to each worker
@@ -30,17 +30,17 @@ void compute_pi_samples(long long iterations, int pipe_write_fd) {
         }
     }
     worker.total_trials = iterations;
-    worker.elapsed_time = 0; // just for now
+    // worker.elapsed_time = 0; // just for now
     if (write(pipe_write_fd, &worker, sizeof(sim_result)) == -1) {
         perror("write");
         exit(1);
     }
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 sim_result test_math(long long iterations, unsigned int seed) {
     sim_result worker;
-    worker.worker_id = getpid(); // worker id is pid for now
+    // worker.worker_id = getpid(); // worker id is pid for now
     worker.hits = 0;
     // unsigned int seed = time(NULL) ^ (getpid() << 16);
     // generate diff sequence of random numbers unique to each worker
@@ -54,6 +54,6 @@ sim_result test_math(long long iterations, unsigned int seed) {
         }
     }
     worker.total_trials = iterations;
-    worker.elapsed_time = 0; // just for now
+    // worker.elapsed_time = 0; // just for now
     return worker;
 }
